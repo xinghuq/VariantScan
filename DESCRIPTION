@@ -1,0 +1,21 @@
+Package: VariantScan
+Version: 0.9.9
+Date: 2022-06-25
+Title: VariantScan: a Machine Leaning Tool for Variant Association Testing
+Description: VariantScan provides a set of machine learning methods for variant (biomarkers, e.g.,genOmic (genetic loci), transcriptOmic (gene expressions), epigenOmic (methylations), proteOmic(proteins), metabolOmic (metabolites))
+             association testing. The genome-wide signal scanning, including association testing can be implemented via least square (linear) model. However, the power might lose when it is applied to other omic data.  
+             This packages integrates three methods, Linear Model, Local Polynomial Fitting (Nonlinear Model) and Generalized Additive Model to perform association testing in genome wide scan studies. 
+             This packge also applies to case-control studies, where the ROC is used to access the model performance.
+Authors@R: c(person("Xinghu", "Qin", role=c("aut", "cre", "cph"), email="qin.xinghu@163.com", comment=c(ORCID="0000-0003-2351-3610")),person("Peilin", "Jia", role=c("aut"), email="pjia@big.ac.cn"))
+Maintainer: Xinghu Qin <qin.xinghu@163.com>
+biocViews:
+Depends: R (>= 3.0)
+License: GPL (>= 3)
+SystemRequirements: GNU make
+URL: https://github.com/xinghuq/VaraintScan
+BugReports: https://github.com/xinghuq/VariantScan/issues
+Imports: stats,SNPRelate,caret,gam,ModelMetrics
+VignetteBuilder: knitr
+NeedsCompilation: no
+RoxygenNote: 6.1.1
+Suggests: knitr,testthat,rmarkdown,ggplot2

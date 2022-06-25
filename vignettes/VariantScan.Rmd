@@ -1,0 +1,132 @@
+---
+title: "VariantScan: a machine leaning tool for variant association testing "
+author: "Xinghu Qin  -- Berijing Institute of Genomics, Chinese Academy of Sciences & China National Center for Bioinformation"
+#date: "`r Sys.Date()`"
+date: "25-06-2022"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Instruction for Package VariantScan }
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+# Instruction
+
+This package provides a set of tool for performing association tests to identify QTLs in genome-wide association studies (GWAS,MWAS,EWAS,PWAS). It integrates three methods, Linear Model, Local Polynomial Fitting (Nonlinear Model) 
+and Generalized Additive Model (GAM) to carry out the analysis in genome wide scan studies. 
+These methods can be also applies to case-control studies, where the ROC is used to access the model performance.
+
+This vignette demonstrates the utility of VariantScan for association testing in genomics. In this vignette, we take the simulated genotypes of 640 individuals as an example. We compared two methods, linear regression and local polynomial regression for identifying QTLs.
+
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+##Install VariantScan
+
+```{r, install}
+#Install from CRAN
+#install.packages("VariantScan")
+## or you can get the latest version of HierDpart from github
+#library(devtools)
+
+#install_github("xinghuq/VariantScan")
+library("ggplot2")
+library("VariantScan")
+
+```
+
+## Load example data
+```{r, library}
+# example genepop file
+f <- system.file('extdata',package='VariantScan')
+infile <- file.path(f, "sim1.csv")
+## read genotype file
+geno=read.csv(infile)
+
+# traits
+traitq=geno[,14]
+genotype=geno[,-c(1:14)]
+
+# get PCs as covariates
+
+PCs=prcomp(genotype)
+summary(PCs$x[,1:2])
+
+```
+
+
+
+## Doing Vscan using local polynomial regression fitting without specifying covariates
+
+```{r}
+loessW=VScan(x=genotype,y=(traitq),methods ="loess")
+
+```
+
+## Doing Vscan using local polynomial regression fitting using PCs as covariates
+
+```{r}
+
+loessWcv=VScan(x=genotype,y=(traitq),U=PCs$x[,1:2],methods ="loess")
+
+```
+## try linear model
+
+```{r}
+lmW=VScan(x=genotype,y=(traitq),methods ="lm")
+
+lmWcv=VScan(x=genotype,y=(traitq),U=PCs$x[,1:2],methods ="lm")
+
+```
+
+## Visualizing the association signatures 
+
+Plot Manhattan plot
+
+### Linear model
+
+```{r,ggplot2, fig1, fig.height = 5, fig.width = 10.5, fig.align = "center"}
+## 
+Loci<-rep("Neutral", 1000)
+Loci[c(201,211,221,231,241,251,261,271,281,291)]<-"QTL"
+Selected_Loci<-Loci[-which(Loci=="Neutral")]
+
+
+g1=ggplot() +
+  geom_point(aes(x=which(Loci=="Neutral"), y=-log10(lmWcv$p_norm$p.value[-which(Loci!="Neutral")])), col = "gray83") +
+  geom_point(aes(x=which(Loci!="Neutral"), y=-log10(lmWcv$p_norm$p.value[-which(Loci=="Neutral")]), colour = Selected_Loci)) +
+  xlab("SNPs") + ylab("-log10(p-value)") +ylim(c(0,35))+theme_bw()
+
+g1
+
+
+
+```
+Fig.1 Manhattan plot for linear model 
+
+### Local polynomial regression model
+```{r,ggpot2, fig2, fig.height = 5, fig.width = 10.5, fig.align = "center"} 
+
+## Manhattan plot
+
+
+g2=ggplot() +
+  geom_point(aes(x=which(Loci=="Neutral"), y=-log10(loessWcv$p_norm$p.value[-which(Loci!="Neutral")])), col = "gray83") +
+  geom_point(aes(x=which(Loci!="Neutral"), y=-log10(loessWcv$p_norm$p.value[-which(Loci=="Neutral")]), colour = Selected_Loci)) +
+  xlab("SNPs") + ylab("-log10(p-value)") +ylim(c(0,35))+theme_bw()
+
+g2
+
+```
+
+Fig.2 Manhattan plot for local polynomial regression model 
+
+
+# References
+
+W. S. Cleveland, E. Grosse and W. M. Shyu (1992) Local regression models. Chapter 8 of Statistical Models in S eds J.M. Chambers and T.J. Hastie, Wadsworth & Brooks/Cole.
