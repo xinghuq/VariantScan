@@ -1,5 +1,5 @@
 Package: VariantScan
-Version: 0.9.9
+Version: 1.0.9
 Date: 2022-06-25
 Title: VariantScan: a Machine Leaning Tool for Variant Association Testing
 Description: VariantScan provides a set of machine learning methods for variant (biomarkers, e.g.,genOmic (genetic loci), transcriptOmic (gene expressions), epigenOmic (methylations), proteOmic(proteins), metabolOmic (metabolites))
