@@ -6,8 +6,8 @@
 # Introduction 
 
 This package provides a set of tools for performing association tests to identify QTLs in genome-wide association studies (GWAS,MWAS,EWAS,PWAS). It integrates three methods, Linear Model, Local Polynomial Fitting (Nonlinear Model) 
-and Generalized Additive Model (GAM) to perform association testing in genome wide scan studies. 
-This packge also applies to case-control studies, where the ROC is used to access the model performance.
+and Generalized Additive Model (GAM) to carry out the analysis in genome wide scan studies. 
+These methods can be also applies to case-control studies, where the ROC is used to access the model performance.
 
 Welcome any [feedback](https://github.com/xinghuq/VariantScan/issues) and [pull request](https://github.com/xinghuq/VariantScan/pulls).  
 
