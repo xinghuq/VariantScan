@@ -60,7 +60,7 @@ lmWcv=VScan(x=genotype,y=(traitq),U=PCs$x[,1:2],methods ="lm")
 
 Plot Manhattan plot
 
-``````
+````
 ## 
 Loci<-rep("Neutral", 1000)
 Loci[c(201,211,221,231,241,251,261,271,281,291)]<-"QT"
@@ -81,8 +81,7 @@ g2=ggplot() +
   geom_point(aes(x=which(Loci=="Neutral"), y=-log10(loessWcv$p_norm$p.value[-which(Loci!="Neutral")])), col = "gray83") +
   geom_point(aes(x=which(Loci!="Neutral"), y=-log10(loessWcv$p_norm$p.value[-which(Loci=="Neutral")]), colour = Selected_Loci)) +xlab("SNPs") + ylab("-log10(p-value)") +ylim(c(0,35))+theme_bw()
 
-g3
-
+g2
 
 ```
 
