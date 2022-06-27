@@ -1,8 +1,8 @@
 Package: VariantScan
 Version: 1.1.9
 Date: 2022-06-25
-Title: VariantScan: a Machine Leaning Tool for Genetic Association Studies
-Description: VariantScan provides a set of machine learning methods (Linear, Local Polynomial Regression Fitting and Generalized Additive Model with Local Polynomial Smoothing) 
+Title: VariantScan: A Machine Leaning Tool for Genetic Association Studies
+Description: Portable, scalable and highly computationally efficient tool for genetic association studies.VariantScan provides a set of machine learning methods (Linear, Local Polynomial Regression Fitting and Generalized Additive Model with Local Polynomial Smoothing) 
              for genetic association studies that test for disease or trait association with genetic variants 
              (biomarkers, e.g.,genomic (genetic loci), transcriptomic (gene expressions), epigenomic (methylations), proteomic (proteins), metabolomic (metabolites)).
              It is particularly useful when local associations and complex nonlinear associations exist.
